@@ -1,39 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:test_canidae_2/login/CanidaeLogin.dart';
+import 'package:test_canidae_2/login/CanidaeRegister.dart';
 
 class CanidaeSplash extends StatelessWidget {
-  CanidaeSplash({
-    Key key,
-  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff757575),
-      body: Stack(
-        children: <Widget>[
-          Transform.translate(
-            offset: Offset(36.0, 242.0),
-            child:
-                // Adobe XD layer: 'Logo-removebg' (shape)
-                Container(
-              width: 340.0,
-              height: 340.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/images/logo.png.png'),
-                  fit: BoxFit.fill,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xff3e3e3e),
-                    offset: Offset(0, 3),
-                    blurRadius: 6,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return SplashScreen(
+      seconds: 2,
+      navigateAfterSeconds: CanidaeRegister(),
+      gradientBackground: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [
+            0.1,
+            0.85,
+            0.9
+          ],
+          colors: [
+            Color(0xff757575),
+            Color(0xffffdede),
+            Color(0xffffdede),
+          ]),
+      image: Image.asset('assets/images/logo.png'),
+      photoSize: 220,
+      loaderColor: Color(0xff757575),
     );
   }
 }
