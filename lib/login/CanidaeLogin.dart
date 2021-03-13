@@ -4,6 +4,7 @@ import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:auth_buttons/auth_buttons.dart';
+import 'package:test_canidae_2/login/CanidaeRegister.dart';
 
 class CanidaeLogin extends StatelessWidget {
   CanidaeLogin({
@@ -144,7 +145,15 @@ class CanidaeLogin extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text("Olvidé mi contraseña 😫"),
                 ),
-                Text("¿Aún no tienes una cuenta? Crea una cuenta"),
+                InkWell(
+                  child: Text("¿Aún no tienes una cuenta? Crea una cuenta"),
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return CanidaeRegister();
+                    }));
+                  },
+                ),
               ],
             ),
           ],

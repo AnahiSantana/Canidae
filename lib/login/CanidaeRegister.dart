@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:test_canidae_2/login/CanidaeLogin.dart';
 
 class CanidaeRegister extends StatelessWidget {
   CanidaeRegister({
@@ -161,7 +162,15 @@ class CanidaeRegister extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("¿Ya tienes una cuenta? Inicia sesión"),
+                  child: InkWell(
+                    child: Text("¿Ya tienes una cuenta? Inicia sesión"),
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return CanidaeLogin();
+                      }));
+                    },
+                  ),
                 ),
               ],
             ),
