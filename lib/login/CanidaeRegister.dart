@@ -14,9 +14,7 @@ class CanidaeRegister extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: gradientP(),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             SizedBox(
               height: 70,
