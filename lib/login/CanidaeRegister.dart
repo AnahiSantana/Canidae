@@ -17,7 +17,7 @@ class CanidaeRegister extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(
-              height: 70,
+              height: 40,
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -30,9 +30,9 @@ class CanidaeRegister extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 8, 8, 0),
               child: Text(
-                'Crea una cuenta para seguir usando las funciones de Canidae',
+                'Crea una cuenta para seguir usando las funciones de Canidae.',
                 style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.left,
+                textAlign: TextAlign.center,
               ),
             ),
             Padding(
@@ -119,7 +119,7 @@ class CanidaeRegister extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    child: Text("¿Ya tienes una cuenta? Inicia sesión"),
+                    child: Text("¿Ya tienes una cuenta?"),
                     onTap: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {

@@ -95,6 +95,7 @@ class CanidaeLogin extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(25, 24, 25, 16),
                   child: TextButton(
+                    style: TextButton.styleFrom(minimumSize: Size(350, 50)),
                     child: Text(
                       'Iniciar sesión',
                     ),
@@ -106,7 +107,7 @@ class CanidaeLogin extends StatelessWidget {
                   child: Text("Olvidé mi contraseña 😫"),
                 ),
                 InkWell(
-                  child: Text("¿Aún no tienes una cuenta? Crea una cuenta"),
+                  child: Text("¿Aún no tienes una cuenta?"),
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
@@ -122,5 +123,3 @@ class CanidaeLogin extends StatelessWidget {
     );
   }
 }
-
-login() {}
