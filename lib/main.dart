@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test_canidae_2/CanidaeSplash.dart';
-import 'package:test_canidae_2/mainScreen/home.dart';
 import 'constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_canidae_2/bloc/canidae_bloc.dart';
@@ -48,7 +47,7 @@ class _MyAppState extends State<MyApp> {
             home: BlocBuilder<CanidaeBloc, CanidaeState>(
               bloc: _canidaeBloc,
               builder: (BuildContext context, CanidaeState state) {
-                return Home();
+                return CanidaeSplash();
               },
             ),
             debugShowCheckedModeBanner: false,
