@@ -46,4 +46,4 @@ app.*.map.json
 /android/app/release
 
 /android/app/src/main/res/values/secrets.xml
-**secrets.xml
+**secrets.xml}
