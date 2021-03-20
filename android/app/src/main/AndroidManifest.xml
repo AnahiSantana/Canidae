@@ -3,6 +3,11 @@
    <application
         android:label="test_canidae_2"
         android:icon="@mipmap/ic_launcher">
+
+         <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCHdr8tqyzihCGt8d8cyla35_UuNuM4usI"/>
+
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
