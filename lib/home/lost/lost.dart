@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_canidae_2/home/lost/cartelDeBusqueda/cartelBusqueda.dart';
+import 'package:test_canidae_2/home/lost/catalogoAvitamientos/lista-avistamientos.dart';
 
 class Perdido extends StatefulWidget {
   Perdido({Key key}) : super(key: key);
@@ -57,7 +58,10 @@ class _PerdidoState extends State<Perdido> {
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {
-                  //TODO: lista de avistamientos
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Avistamientos();
+                  }));
                 },
               ),
             ),

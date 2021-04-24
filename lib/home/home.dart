@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:test_canidae_2/home/found/found.dart';
+import 'package:test_canidae_2/home/lost/lost.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -20,18 +22,61 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: BackButton(color: Theme.of(context).accentColor),
-      ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          leading: BackButton(color: Theme.of(context).accentColor),
         ),
-        mapType: MapType.normal,
-      ),
-    );
+        //TODO: corregir mapa, no se carga bien :(
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
+          ),
+          mapType: MapType.normal,
+        ),
+        floatingActionButton: Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 50),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Perdido();
+                    }));
+                  },
+                  label: Text(" Perdida  "),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: FloatingActionButton(
+                onPressed: () {
+                  //TODO: foto para avistamiento
+                },
+                child: Icon(Icons.camera_alt),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 40),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Encontrado();
+                    }));
+                  },
+                  label: Text("Encontrada"),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

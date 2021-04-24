@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test_canidae_2/home/found/catalogoCarteles/lista-carteles.dart';
+
+import 'avistamientos/avistamiento.dart';
 
 class Encontrado extends StatefulWidget {
   Encontrado({Key key}) : super(key: key);
@@ -41,7 +44,10 @@ class _EncontradoState extends State<Encontrado> {
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {
-                  //TODO: avistamiento
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Avistamiento();
+                  }));
                 },
               ),
             ),
@@ -53,7 +59,10 @@ class _EncontradoState extends State<Encontrado> {
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {
-                  //TODO: lista de carteles
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Carteles();
+                  }));
                 },
               ),
             ),
