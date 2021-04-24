@@ -12,7 +12,7 @@ LinearGradient gradientP() {
       ],
       colors: [
         SECONDARY_COLOR,
-        PRIMARY_COLOR,
-        PRIMARY_COLOR,
+        TERTIARY_ACCENT_COLOR,
+        Color(0xffe7cfcd),
       ]);
 }
