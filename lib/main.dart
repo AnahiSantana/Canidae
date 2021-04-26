@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test_canidae_2/CanidaeSplash.dart';
-import 'package:test_canidae_2/mainScreen/home.dart';
 import 'constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_canidae_2/bloc/canidae_bloc.dart';
@@ -46,18 +45,26 @@ class _MyAppState extends State<MyApp> {
             home: BlocBuilder<CanidaeBloc, CanidaeState>(
               bloc: _canidaeBloc,
               builder: (BuildContext context, CanidaeState state) {
-                return Home();
+                return CanidaeSplash();
               },
             ),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primaryColor: PRIMARY_COLOR,
               accentColor: ACCENT_COLOR,
-              cardColor: SECONDARY_COLOR,
+              cardColor: PRIMARY_COLOR,
+              backgroundColor: SECONDARY_COLOR,
+              highlightColor: PRIMARY_COLOR,
               splashColor: ACCENT_COLOR,
               appBarTheme: AppBarTheme(
                 elevation: 0,
                 backgroundColor: Colors.transparent,
+                centerTitle: true,
+              ),
+              inputDecorationTheme: InputDecorationTheme(
+                labelStyle: Theme.of(context).textTheme.bodyText1,
+                fillColor: Theme.of(context).primaryColor,
+                filled: true,
               ),
               textButtonTheme: TextButtonThemeData(
                   style: TextButton.styleFrom(
@@ -76,6 +83,13 @@ class _MyAppState extends State<MyApp> {
                 headline2: TextStyle(
                   fontFamily: 'Fira Sans',
                   fontSize: 32,
+                  color: SECONDARY_ACCENT_COLOR,
+                  fontWeight: FontWeight.w400,
+                  height: 0.84375,
+                ),
+                headline3: TextStyle(
+                  fontFamily: 'Fira Sans',
+                  fontSize: 20,
                   color: SECONDARY_ACCENT_COLOR,
                   fontWeight: FontWeight.w400,
                   height: 0.84375,
