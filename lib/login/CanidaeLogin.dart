@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:test_canidae_2/gradient.dart';
+import 'package:test_canidae_2/home/home.dart';
 import 'package:test_canidae_2/login/CanidaeRegister.dart';
 
 class CanidaeLogin extends StatelessWidget {
+  final ValueChanged<bool> onAnonymousLoginTap;
+  final ValueChanged<bool> onGoogleLoginTap;
+  final ValueChanged<bool> onFacebookLoginTap;
+
   CanidaeLogin({
     Key key,
+    @required this.onAnonymousLoginTap,
+    @required this.onGoogleLoginTap,
+    @required this.onFacebookLoginTap,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +26,7 @@ class CanidaeLogin extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(
-              height: 75,
+              height: 55,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -41,7 +50,7 @@ class CanidaeLogin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GoogleAuthButton(
-                    onPressed: () {},
+                    onPressed: () => onGoogleLoginTap(true),
                     darkMode: false,
                   )
                 ],
@@ -114,6 +123,18 @@ class CanidaeLogin extends StatelessWidget {
                       return CanidaeRegister();
                     }));
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: InkWell(
+                    child: Text("Ingresar como invitado"),
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return Home();
+                      }));
+                    },
+                  ),
                 ),
               ],
             ),

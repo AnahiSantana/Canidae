@@ -4,8 +4,15 @@ import 'package:test_canidae_2/gradient.dart';
 import 'package:test_canidae_2/login/CanidaeLogin.dart';
 
 class CanidaeRegister extends StatelessWidget {
+  final ValueChanged<bool> onAnonymousLoginTap;
+  final ValueChanged<bool> onGoogleLoginTap;
+  final ValueChanged<bool> onFacebookLoginTap;
+
   CanidaeRegister({
     Key key,
+    @required this.onAnonymousLoginTap,
+    @required this.onGoogleLoginTap,
+    @required this.onFacebookLoginTap,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class CanidaeRegister extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GoogleAuthButton(
-                    onPressed: () {},
+                    onPressed: () => onGoogleLoginTap(true),
                     darkMode: false,
                   )
                 ],
@@ -52,7 +59,7 @@ class CanidaeRegister extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                  child: Text("O registrate usando tu correo"),
+                  child: Text("O regístrate usando tu correo"),
                 )
               ],
             ),
