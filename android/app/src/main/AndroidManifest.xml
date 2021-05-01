@@ -1,11 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.test_canidae_2">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
    <application
         android:label="Canidae"
         android:icon="@mipmap/launcher_icon">
 
          <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@secrets/API_KEY"/>
+            android:value="Secreto"/>
 
 
         <activity
