@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:test_canidae_2/gradient.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/cartel_bloc.dart';
 
 class CartelBusqueda extends StatefulWidget {
   CartelBusqueda({Key key}) : super(key: key);
@@ -11,15 +12,17 @@ class CartelBusqueda extends StatefulWidget {
   _CartelBusquedaState createState() => _CartelBusquedaState();
 }
 
-//TODO: implementar bloc
 class _CartelBusquedaState extends State<CartelBusqueda> {
-  File selectedImage;
+  CartelBloc cartelBloc;
   DateTime fechaE;
+  File selectedImage;
   var noTc = TextEditingController();
   var noAdTc = TextEditingController();
   var correoTc = TextEditingController();
   var petNameTc = TextEditingController();
   var descTc = TextEditingController();
+  var tamano = TextEditingController();
+  var color = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +32,55 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
         leading: BackButton(color: Theme.of(context).accentColor),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: gradientP(),
-        ),
-        child: _createForm(),
-      ),
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: gradientP(),
+          ),
+          child: BlocProvider(
+            create: (context) {
+              cartelBloc = CartelBloc();
+              return cartelBloc;
+            },
+            child: BlocConsumer<CartelBloc, CartelState>(
+              listener: (context, state) {
+                if (state is PickedImageState) {
+                  selectedImage = state.image;
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("Imagen seleccionada"),
+                      ),
+                    );
+                } else if (state is SavedCartelState) {
+                  noTc.clear();
+                  noAdTc.clear();
+                  correoTc.clear();
+                  petNameTc.clear();
+                  descTc.clear();
+                  color.clear();
+                  selectedImage = null;
+                  fechaE = null;
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text("Cartel guardado..."),
+                      ),
+                    );
+                }
+              },
+              builder: (context, state) {
+                if (state is LoadingState) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return _createForm();
+              },
+            ),
+          )),
     );
   }
 
@@ -225,34 +270,6 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
     );
   }
 
-  Future<File> _imgFromCamera() async {
-    final pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxHeight: 720,
-      maxWidth: 720,
-      imageQuality: 85,
-    );
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      print('No image selected.');
-      return null;
-    }
-  }
-
-  Future<File> _imgFromGallery() async {
-    final pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      imageQuality: 85,
-    );
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      print('No image selected.');
-      return null;
-    }
-  }
-
   Future<File> _chooseImage() async {
     File _pickedFile;
     showModalBottomSheet(
@@ -265,15 +282,15 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                   new ListTile(
                       leading: new Icon(Icons.photo_library),
                       title: new Text('Photo Library'),
-                      onTap: () async {
-                        _pickedFile = await _imgFromGallery();
+                      onTap: () {
+                        cartelBloc.add(GalleryImageEvent());
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
                     title: new Text('Camera'),
-                    onTap: () async {
-                      _pickedFile = await _imgFromCamera();
+                    onTap: () {
+                      cartelBloc.add(CamaraImageEvent());
                       Navigator.of(context).pop();
                     },
                   ),
