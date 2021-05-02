@@ -30,6 +30,16 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
       yield LoadingState();
       _selectedPicture = await _imgFromCamera();
       yield PickedImageState(image: _selectedPicture);
+    } else if (event is SaveCartelEvent) {
+      String imageUrl = await _uploadFile();
+      if (imageUrl != null) {
+        yield LoadingState();
+        //await _saveNoticias(event.noticia.copyWith(urlToImage: imageUrl));
+        // yield LoadedNewsState(noticiasList: await _getNoticias() ?? []);
+        yield SavedCartelState();
+      } else {
+        yield ErrorMessageState(errorMsg: "No se pudo guardar la imagen");
+      }
     }
   }
 
@@ -39,13 +49,13 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
       if (_selectedPicture == null) return null;
       // define upload task
       UploadTask task = FirebaseStorage.instance
-          .ref("noticias/imagen_$stamp.png")
+          .ref("images/imagen_$stamp.png")
           .putFile(_selectedPicture);
       // execute task
       await task;
       // recuperar url del documento subido
       return await task.storage
-          .ref("noticias/imagen_$stamp.png")
+          .ref("images/imagen_$stamp.png")
           .getDownloadURL();
     } on FirebaseException catch (e) {
       // e.g, e.code == 'canceled'

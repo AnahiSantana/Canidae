@@ -261,7 +261,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {
-                //TODO: guardar en firebase
+                cartelBloc.add(SaveCartelEvent());
               },
             ),
           ),
