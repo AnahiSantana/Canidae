@@ -24,23 +24,23 @@ class _EncontradoState extends State<Encontrado> {
         height: double.infinity,
         child: ListView(
           children: [
-            SizedBox(height: 80),
             Text(
               '¿Encontraste una mascota?',
               style: Theme.of(context).textTheme.headline1,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 80),
+            SizedBox(height: 10),
             Text(
               "¡Ayudala a volver a casa!",
               style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             ),
+            Image.asset('assets/images/found1.png'),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 50, 25, 0),
               child: TextButton(
                 child: Text(
-                  "Registrar un avistamiento",
+                  "Registrar un avistamiento 🔭",
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {
@@ -55,7 +55,7 @@ class _EncontradoState extends State<Encontrado> {
               padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
               child: TextButton(
                 child: Text(
-                  "Buscar reportes",
+                  "Buscar reportes 🔎",
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {

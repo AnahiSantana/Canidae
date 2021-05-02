@@ -13,7 +13,7 @@ class _CartelesState extends State<Carteles> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text("Buscar avistamientos"),
+          title: Text("Buscar mascotas perdidas"),
           leading: BackButton(color: Theme.of(context).accentColor),
           backgroundColor: Theme.of(context).primaryColor,
         ),

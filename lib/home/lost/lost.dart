@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_canidae_2/home/lost/cartelDeBusqueda/cartelBusqueda.dart';
-import 'package:test_canidae_2/home/lost/catalogoAvitamientos/lista-avistamientos.dart';
+import 'package:test_canidae_2/home/lost/catalogoAvistamientos/lista-avistamientos.dart';
 
 class Perdido extends StatefulWidget {
   Perdido({Key key}) : super(key: key);
@@ -23,23 +23,23 @@ class _PerdidoState extends State<Perdido> {
         height: double.infinity,
         child: ListView(
           children: [
-            SizedBox(height: 80),
             Text(
               '¿Perdiste a tu mascota?',
               style: Theme.of(context).textTheme.headline1,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 80),
+            SizedBox(height: 5),
             Text(
               "Nosotros te ayudamos a encontrarla",
               style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             ),
+            Image.asset('assets/images/missing.png'),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 50, 25, 0),
               child: TextButton(
                 child: Text(
-                  "Crear un reporte",
+                  "Crear un reporte 🧾",
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {
@@ -54,7 +54,7 @@ class _PerdidoState extends State<Perdido> {
               padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
               child: TextButton(
                 child: Text(
-                  "Buscar avistamientos",
+                  "Buscar avistamientos 🔎",
                   style: TextStyle(fontSize: 22),
                 ),
                 onPressed: () {

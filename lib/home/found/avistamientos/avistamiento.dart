@@ -16,6 +16,23 @@ class _AvistamientoState extends State<Avistamiento> {
   DateTime fechaE;
   final GlobalKey<TagsState> _globalKey = GlobalKey<TagsState>();
   List tags = new List();
+  String colorDropdownValue = 'Negro';
+  String sizeDropdownValue = 'Pequeño';
+
+  final List<String> colorList = <String>[
+    'Negro',
+    'Gris',
+    'Blanco',
+    'Café',
+    'Dorado',
+    'Rojo'
+  ];
+
+  final List<String> sizeList = <String>[
+    'Pequeño',
+    'Mediano',
+    'Grande',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,7 @@ class _AvistamientoState extends State<Avistamiento> {
 
   Widget _createForm() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 40),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
       child: ListView(
         children: [
           Text(
@@ -47,7 +64,7 @@ class _AvistamientoState extends State<Avistamiento> {
           ),
           SizedBox(height: 30),
           Text(
-            "Pon aquí las fotos de la mascota",
+            "¡Ayuda a un amigo a volver a casa!",
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           ),
@@ -60,7 +77,7 @@ class _AvistamientoState extends State<Avistamiento> {
                   width: 60,
                 )
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                  padding: const EdgeInsets.symmetric(horizontal: 60),
                   child: Container(
                     height: 160,
                     width: 120,
@@ -78,41 +95,63 @@ class _AvistamientoState extends State<Avistamiento> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
-                child: Tags(
-              key: _globalKey,
-              itemCount: tags.length,
-              columns: 4,
-              textField: TagsTextField(
-                  hintText: "Áyudanos a describirlo",
-                  textStyle: TextStyle(fontSize: 14),
-                  onSubmitted: (string) {
-                    setState(() {
-                      tags.add(Item(title: string));
-                    });
-                  }),
-              itemBuilder: (index) {
-                final Item currentItem = tags[index];
-                return ItemTags(
-                  activeColor: Theme.of(context).accentColor,
-                  index: index,
-                  title: currentItem.title,
-                  customData: currentItem.customData,
-                  textStyle: TextStyle(fontSize: 14),
-                  onPressed: (i) => print(i),
-                  onLongPressed: (i) => print(i),
-                  removeButton: ItemTagsRemoveButton(
-                      color: Colors.white,
-                      onRemoved: () {
-                        setState(() {
-                          tags.removeAt(index);
-                        });
-                        return true;
-                      }),
-                );
-              },
-            )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Color"),
+                      DropdownButton(
+                        value: colorDropdownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        iconSize: 8,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.pinkAccent),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            colorDropdownValue = newValue;
+                          });
+                        },
+                        items: colorList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Tamaño"),
+                      DropdownButton(
+                        value: sizeDropdownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        iconSize: 8,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.pinkAccent),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            sizeDropdownValue = newValue;
+                          });
+                        },
+                        items: sizeList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          SizedBox(height: 16),
           Text(
             "Fecha de extravío",
             textAlign: TextAlign.center,
