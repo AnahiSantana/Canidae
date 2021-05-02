@@ -82,6 +82,9 @@ flutter:
   assets:
       - assets/images/logo.png
       - assets/images/location-pin.png
+      - assets/images/missing.png
+      - assets/images/found1.png
+      - assets/images/found2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

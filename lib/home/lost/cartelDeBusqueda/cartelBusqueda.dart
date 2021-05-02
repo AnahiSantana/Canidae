@@ -56,11 +56,10 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 5),
-          Text("Número de telefono"),
           TextField(
             controller: noTc,
             decoration: InputDecoration(
-              labelText: 'No de telefono',
+              labelText: 'Número de telefono',
               labelStyle: Theme.of(context).textTheme.bodyText1,
               fillColor: Theme.of(context).primaryColor,
               filled: true,

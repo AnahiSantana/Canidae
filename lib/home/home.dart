@@ -10,6 +10,8 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'dart:async';
 
+import 'package:test_canidae_2/profile/profile.dart';
+
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
@@ -36,10 +38,28 @@ class _HomeState extends State<Home> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: BackButton(color: Theme.of(context).accentColor),
+        leading: BackButton(
+          color: Theme.of(context).accentColor,
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.person,
+              color: Theme.of(context).accentColor,
+              size: 32,
+            ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return Perfil();
+              }));
+            },
+          )
+        ],
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
+        myLocationButtonEnabled: true,
+        zoomControlsEnabled: false,
         initialCameraPosition: CameraPosition(
           target: _currentPosition == null
               ? LatLng(_center.latitude, _center.longitude)
@@ -52,7 +72,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: Stack(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(left: 50),
+            padding: EdgeInsets.only(left: 35),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: FloatingActionButton.extended(
@@ -62,21 +82,24 @@ class _HomeState extends State<Home> {
                     return Perdido();
                   }));
                 },
-                label: Text(" Perdida  "),
+                label: Text("  Perdida   "),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: FloatingActionButton(
-              onPressed: () {
-                //TODO: foto para avistamiento
-              },
-              child: Icon(Icons.camera_alt),
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: FloatingActionButton(
+                onPressed: () {
+                  //TODO: foto para avistamiento
+                },
+                child: Icon(Icons.camera_alt),
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 40),
+            padding: EdgeInsets.only(right: 0),
             child: Align(
               alignment: Alignment.bottomRight,
               child: FloatingActionButton.extended(
