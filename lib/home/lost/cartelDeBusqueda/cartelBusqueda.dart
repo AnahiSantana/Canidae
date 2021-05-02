@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:test_canidae_2/gradient.dart';
 
 class CartelBusqueda extends StatefulWidget {
@@ -134,8 +135,8 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                         color: Theme.of(context).accentColor,
                         iconSize: 35,
                         icon: Icon(Icons.add_a_photo_rounded),
-                        onPressed: () {
-                          //TODO: Select photo event
+                        onPressed: () async {
+                          selectedImage = await _chooseImage();
                         }),
                   ),
                 ),
@@ -222,5 +223,65 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
         ],
       ),
     );
+  }
+
+  Future<File> _imgFromCamera() async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxHeight: 720,
+      maxWidth: 720,
+      imageQuality: 85,
+    );
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    } else {
+      print('No image selected.');
+      return null;
+    }
+  }
+
+  Future<File> _imgFromGallery() async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      imageQuality: 85,
+    );
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    } else {
+      print('No image selected.');
+      return null;
+    }
+  }
+
+  Future<File> _chooseImage() async {
+    File _pickedFile;
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () async {
+                        _pickedFile = await _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () async {
+                      _pickedFile = await _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+    return _pickedFile;
   }
 }
