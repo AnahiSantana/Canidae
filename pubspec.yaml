@@ -54,6 +54,7 @@ dependencies:
   
 
   flutter_tags: ^0.4.9+1
+  geopoint: ^0.8.0
 
 
 
