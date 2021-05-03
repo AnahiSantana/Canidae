@@ -13,6 +13,7 @@ class Carteles extends Equatable {
   final String petName;
   final String tamano;
   final String urlToImage;
+  final String idUser;
 
   const Carteles({
     @required this.petName,
@@ -25,6 +26,7 @@ class Carteles extends Equatable {
     @required this.urlToImage,
     @required this.fechaExtravio,
     @required this.lugar,
+    @required this.idUser,
   });
 
   @override
@@ -46,6 +48,7 @@ class Carteles extends Equatable {
           ? null
           : DateTime.parse(json['fechaExtravio'] as String),
       lugar: json['lugar'] as GeoPoint,
+      idUser: json['idUser'] as String,
     );
   }
 
@@ -61,6 +64,7 @@ class Carteles extends Equatable {
       'urlToImage': urlToImage,
       'fechaExtravio': fechaExtravio?.toIso8601String(),
       'lugar': lugar,
+      'idUser': idUser,
     };
   }
 
@@ -75,6 +79,7 @@ class Carteles extends Equatable {
     String urlToImage,
     DateTime fechaExtravio,
     String lugar,
+    String idUser,
   }) {
     return Carteles(
       petName: petName ?? this.petName,
@@ -87,6 +92,7 @@ class Carteles extends Equatable {
       urlToImage: urlToImage ?? this.urlToImage,
       fechaExtravio: fechaExtravio ?? this.fechaExtravio,
       lugar: lugar ?? this.lugar,
+      idUser: idUser ?? this.idUser,
     );
   }
 
@@ -103,6 +109,7 @@ class Carteles extends Equatable {
       urlToImage,
       fechaExtravio,
       lugar,
+      idUser,
     ];
   }
 }

@@ -8,6 +8,7 @@ class Avistamientos extends Equatable {
   final GeoPoint lugar;
   final String tamano;
   final String urlToImage;
+  final String idUser;
 
   const Avistamientos({
     @required this.color,
@@ -15,6 +16,7 @@ class Avistamientos extends Equatable {
     @required this.lugar,
     @required this.urlToImage,
     @required this.fecha,
+    @required this.idUser,
   });
 
   @override
@@ -31,6 +33,7 @@ class Avistamientos extends Equatable {
           ? null
           : DateTime.parse(json['fecha'] as String),
       lugar: json['lugar'] as GeoPoint,
+      idUser: json['idUser'] as String,
     );
   }
 
@@ -41,6 +44,7 @@ class Avistamientos extends Equatable {
       'urlToImage': urlToImage,
       'fecha': fecha?.toIso8601String(),
       'lugar': lugar,
+      'idUser': idUser,
     };
   }
 
@@ -50,6 +54,7 @@ class Avistamientos extends Equatable {
     String urlToImage,
     DateTime fecha,
     String lugar,
+    String idUser,
   }) {
     return Avistamientos(
       color: color ?? this.color,
@@ -57,6 +62,7 @@ class Avistamientos extends Equatable {
       urlToImage: urlToImage ?? this.urlToImage,
       fecha: fecha ?? this.fecha,
       lugar: lugar ?? this.lugar,
+      idUser: idUser ?? this.idUser,
     );
   }
 
@@ -68,6 +74,7 @@ class Avistamientos extends Equatable {
       urlToImage,
       fecha,
       lugar,
+      idUser,
     ];
   }
 }
