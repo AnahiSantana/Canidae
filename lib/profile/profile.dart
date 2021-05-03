@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
+import 'package:test_canidae_2/bloc/auth_bloc.dart';
 import 'package:test_canidae_2/gradient.dart';
+import 'package:test_canidae_2/auth/user_auth_provider.dart';
+import 'package:test_canidae_2/login/CanidaeLogin.dart';
+import 'package:test_canidae_2/login/bloc/login_bloc.dart';
 
 class Perfil extends StatefulWidget {
   Perfil({Key key}) : super(key: key);
@@ -12,6 +16,8 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+  LoginBloc loginBloc;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,11 +48,11 @@ class _PerfilState extends State<Perfil> {
           ),
           SizedBox(height: 10),
           Container(
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             decoration: BoxDecoration(
               border:
-                  Border.all(color: Theme.of(context).accentColor, width: 5),
+                  Border.all(color: Theme.of(context).accentColor, width: 3),
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: NetworkImage(
@@ -54,7 +60,7 @@ class _PerfilState extends State<Perfil> {
                   fit: BoxFit.contain),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -149,7 +155,7 @@ class _PerfilState extends State<Perfil> {
                 SizedBox(height: 15),
                 Text(
                   'Información de contacto',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 5),
@@ -200,7 +206,43 @@ class _PerfilState extends State<Perfil> {
                 SizedBox(height: 15),
               ],
             ),
-          )
+          ),
+          Container(
+            margin: EdgeInsets.all(10),
+            height: 50.0,
+            width: 120,
+            decoration: BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Theme.of(context).accentColor.withOpacity(0.1),
+                  blurRadius: 5,
+                  offset: Offset(10, 10),
+                ),
+              ],
+            ),
+            child: RaisedButton.icon(
+              label: Text(
+                "Cerrar sesión",
+                style: TextStyle(fontSize: 16),
+                softWrap: true,
+              ),
+              icon: Icon(Icons.exit_to_app_outlined),
+              elevation: 15,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  side: BorderSide(color: Theme.of(context).accentColor)),
+              onPressed: () {
+                AuthBloc()..add(SignOutAuthenticationEvent());
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return CanidaeLogin();
+                }));
+              },
+              padding: EdgeInsets.all(10.0),
+              color: Theme.of(context).accentColor,
+              textColor: Colors.white,
+            ),
+          ),
         ],
       ),
     );
