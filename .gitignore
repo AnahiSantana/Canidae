@@ -49,3 +49,4 @@ app.*.map.json
 /android/app/google-services.json
 **secrets.xml
 
+android/app/src/main/AndroidManifest.xml
