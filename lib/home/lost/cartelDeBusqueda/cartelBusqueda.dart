@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_canidae_2/gradient.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_canidae_2/models/carteles.dart';
 import 'bloc/cartel_bloc.dart';
 
 class CartelBusqueda extends StatefulWidget {
@@ -13,9 +15,26 @@ class CartelBusqueda extends StatefulWidget {
 }
 
 class _CartelBusquedaState extends State<CartelBusqueda> {
+  final List<String> colorList = <String>[
+    'Negro',
+    'Gris',
+    'Blanco',
+    'Café',
+    'Dorado',
+    'Rojo'
+  ];
+
+  final List<String> sizeList = <String>[
+    'Pequeño',
+    'Mediano',
+    'Grande',
+  ];
+
   CartelBloc cartelBloc;
   DateTime fechaE;
   File selectedImage;
+  String colorDropdownValue = 'Negro';
+  String sizeDropdownValue = 'Pequeño';
   var noTc = TextEditingController();
   var noAdTc = TextEditingController();
   var correoTc = TextEditingController();
@@ -138,7 +157,62 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("Color"),
+                  DropdownButton(
+                    value: colorDropdownValue,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    iconSize: 8,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.pinkAccent),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        colorDropdownValue = newValue;
+                      });
+                    },
+                    items:
+                        colorList.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("Tamaño"),
+                  DropdownButton(
+                    value: sizeDropdownValue,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    iconSize: 8,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.pinkAccent),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        sizeDropdownValue = newValue;
+                      });
+                    },
+                    items:
+                        sizeList.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
+            ],
+          ),
           Text("Nombre"),
           TextField(
             controller: petNameTc,
@@ -260,7 +334,19 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {
-                cartelBloc.add(SaveCartelEvent());
+                Carteles cartel = Carteles(
+                    petName: petNameTc.text,
+                    noTelefono: int.parse(noTc.text),
+                    noAdicional: int.parse(noAdTc.text),
+                    email: correoTc.text,
+                    descripcion: descTc.text,
+                    tamano: tamano.text,
+                    color: color.text,
+                    urlToImage: null,
+                    idUser: null,
+                    fechaExtravio: fechaE,
+                    lugar: GeoPoint(20.627559021302762, -103.38116081294798));
+                cartelBloc.add(SaveCartelEvent(cartel: cartel));
               },
             ),
           ),

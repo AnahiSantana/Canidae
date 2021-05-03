@@ -7,7 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:connectivity/connectivity.dart';
+//import 'package:connectivity/connectivity.dart';
+import 'package:test_canidae_2/models/carteles.dart';
 
 part 'cartel_event.dart';
 part 'cartel_state.dart';
@@ -34,12 +35,22 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
       String imageUrl = await _uploadFile();
       if (imageUrl != null) {
         yield LoadingState();
-        //await _saveNoticias(event.noticia.copyWith(urlToImage: imageUrl));
+        await _saveCartel(event.cartel.copyWith(urlToImage: imageUrl));
         // yield LoadedNewsState(noticiasList: await _getNoticias() ?? []);
         yield SavedCartelState();
       } else {
         yield ErrorMessageState(errorMsg: "No se pudo guardar la imagen");
       }
+    }
+  }
+
+  Future<bool> _saveCartel(Carteles cartel) async {
+    try {
+      await _cFirestore.collection("Carteles").add(cartel.toJson());
+      return true;
+    } catch (e) {
+      print("Error: $e");
+      return false;
     }
   }
 

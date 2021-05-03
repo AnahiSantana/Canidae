@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:geopoint/geopoint.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Carteles extends Equatable {
   final String color;

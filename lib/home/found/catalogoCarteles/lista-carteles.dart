@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Carteles extends StatefulWidget {
-  Carteles({Key key}) : super(key: key);
+class ListaCarteles extends StatefulWidget {
+  ListaCarteles({Key key}) : super(key: key);
 
   @override
-  _CartelesState createState() => _CartelesState();
+  _ListaCartelesState createState() => _ListaCartelesState();
 }
 
-class _CartelesState extends State<Carteles> {
+class _ListaCartelesState extends State<ListaCarteles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class _CartelesState extends State<Carteles> {
             child: ListView(
               children: [
                 Text(
-                  "Aqui van los CARTELES y los filtros de busqueda",
+                  "Aqui van los ListaCarteles y los filtros de busqueda",
                   style: Theme.of(context).textTheme.headline1,
                 ),
               ],

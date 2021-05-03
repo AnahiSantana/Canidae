@@ -61,7 +61,7 @@ class _EncontradoState extends State<Encontrado> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return Carteles();
+                    return ListaCarteles();
                   }));
                 },
               ),

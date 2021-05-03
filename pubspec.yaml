@@ -52,10 +52,8 @@ dependencies:
   geocoding: ^2.0.0
   flutter_cache_manager: ^3.0.1
   firebase_storage: ^8.0.3
-  
-
   flutter_tags: ^0.4.9+1
-  geopoint: ^0.8.0
+
 
 
 
