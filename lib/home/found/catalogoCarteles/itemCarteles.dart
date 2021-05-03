@@ -19,10 +19,13 @@ class ItemCarteles extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: Image.network(
-                  "${cartel.urlToImage}",
-                  height: 100,
-                  fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Image.network(
+                    "${cartel.urlToImage}",
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Expanded(

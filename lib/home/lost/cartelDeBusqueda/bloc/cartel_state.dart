@@ -11,6 +11,14 @@ class CartelInitial extends CartelState {}
 
 class LoadingState extends CartelState {}
 
+class LoadedCartelState extends CartelState {
+  final List<Carteles> carteles;
+
+  LoadedCartelState({@required this.carteles});
+  @override
+  List<Object> get props => [carteles];
+}
+
 class PickedImageState extends CartelState {
   final File image;
 

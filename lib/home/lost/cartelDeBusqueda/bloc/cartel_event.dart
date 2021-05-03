@@ -7,6 +7,11 @@ abstract class CartelEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class RequestAllCartelesEvent extends CartelEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class SaveCartelEvent extends CartelEvent {
   final Carteles cartel;
   SaveCartelEvent({@required this.cartel});

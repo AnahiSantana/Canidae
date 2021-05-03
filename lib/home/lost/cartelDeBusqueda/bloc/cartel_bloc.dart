@@ -25,7 +25,11 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
   Stream<CartelState> mapEventToState(
     CartelEvent event,
   ) async* {
-    if (event is GalleryImageEvent) {
+    if (event is RequestAllCartelesEvent) {
+      // conectarnos a firebase noSQL y traernos los docs
+      yield LoadingState();
+      yield LoadedCartelState(carteles: await _getCarteles() ?? []);
+    } else if (event is GalleryImageEvent) {
       yield LoadingState();
       _selectedPicture = await _imgFromGallery();
       yield PickedImageState(image: _selectedPicture);
@@ -111,6 +115,31 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
     } else {
       print('No image selected.');
       return null;
+    }
+  }
+
+  Future<List<Carteles>> _getCarteles() async {
+    try {
+      var carteles = await _cFirestore.collection("Carteles").get();
+      return carteles.docs
+          .map(
+            (element) => Carteles(
+              petName: element["petName"],
+              descripcion: element["descripcion"],
+              email: element["email"],
+              noAdicional: element["noAdicional"],
+              noTelefono: element["noTelefono"],
+              color: element["color"],
+              tamano: element["tamano"],
+              urlToImage: element["urlToImage"],
+              lugar: element["lugar"],
+              fechaExtravio: DateTime.parse(element["fechaExtravio"]),
+            ),
+          )
+          .toList();
+    } catch (e) {
+      print("Error: $e");
+      return [];
     }
   }
 }
