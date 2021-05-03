@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,7 @@ part 'cartel_state.dart';
 
 class CartelBloc extends Bloc<CartelEvent, CartelState> {
   final _cFirestore = FirebaseFirestore.instance;
+  final _cFirebase = FirebaseAuth.instance;
   File _selectedPicture;
 
   CartelBloc() : super(CartelInitial());
@@ -35,7 +37,12 @@ class CartelBloc extends Bloc<CartelEvent, CartelState> {
       String imageUrl = await _uploadFile();
       if (imageUrl != null) {
         yield LoadingState();
-        await _saveCartel(event.cartel.copyWith(urlToImage: imageUrl));
+        await _saveCartel(
+          event.cartel.copyWith(
+            urlToImage: imageUrl,
+            idUser: _cFirebase.currentUser.uid,
+          ),
+        );
         // yield LoadedNewsState(noticiasList: await _getNoticias() ?? []);
         yield SavedCartelState();
       } else {

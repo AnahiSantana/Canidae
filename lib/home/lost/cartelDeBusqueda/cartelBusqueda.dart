@@ -79,6 +79,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                   petNameTc.clear();
                   descTc.clear();
                   color.clear();
+                  tamano.clear();
                   selectedImage = null;
                   fechaE = null;
                   ScaffoldMessenger.of(context)
@@ -334,19 +335,23 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {
-                Carteles cartel = Carteles(
-                    petName: petNameTc.text,
-                    noTelefono: int.parse(noTc.text),
-                    noAdicional: int.parse(noAdTc.text),
-                    email: correoTc.text,
-                    descripcion: descTc.text,
-                    tamano: tamano.text,
-                    color: color.text,
-                    urlToImage: null,
-                    idUser: null,
-                    fechaExtravio: fechaE,
-                    lugar: GeoPoint(20.627559021302762, -103.38116081294798));
-                cartelBloc.add(SaveCartelEvent(cartel: cartel));
+                cartelBloc.add(
+                  SaveCartelEvent(
+                    cartel: Carteles(
+                      petName: petNameTc.text,
+                      noTelefono: int.parse(noTc.text),
+                      noAdicional: int.parse(noAdTc.text),
+                      email: correoTc.text,
+                      descripcion: descTc.text,
+                      tamano: tamano.value.text,
+                      color: color.value.text,
+                      urlToImage: null,
+                      idUser: null,
+                      fechaExtravio: fechaE,
+                      lugar: GeoPoint(20.636464433337576, -103.3796966997379),
+                    ),
+                  ),
+                );
               },
             ),
           ),
