@@ -120,7 +120,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 10),
           TextField(
             controller: noTc,
             decoration: InputDecoration(
@@ -131,22 +131,20 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             ),
           ),
           SizedBox(height: 16),
-          Text("Número de telefono adicional"),
           TextField(
             controller: noAdTc,
             decoration: InputDecoration(
-              labelText: 'No Acicional',
+              labelText: 'Número de telefono adicional',
               labelStyle: Theme.of(context).textTheme.bodyText1,
               fillColor: Theme.of(context).primaryColor,
               filled: true,
             ),
           ),
           SizedBox(height: 16),
-          Text("Correo"),
           TextField(
             controller: correoTc,
             decoration: InputDecoration(
-              labelText: 'Correo',
+              labelText: 'Correo electrónico',
               labelStyle: Theme.of(context).textTheme.bodyText1,
               fillColor: Theme.of(context).primaryColor,
               filled: true,
@@ -214,18 +212,24 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
               ),
             ],
           ),
-          Text("Nombre"),
           TextField(
             controller: petNameTc,
             decoration: InputDecoration(
-              labelText: 'Nombre',
+              labelText: 'Nombre completo',
               labelStyle: Theme.of(context).textTheme.bodyText1,
               fillColor: Theme.of(context).primaryColor,
               filled: true,
             ),
           ),
           SizedBox(height: 16),
-          Text("Descripción"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Descripción de la mascota",
+              style: Theme.of(context).textTheme.headline3,
+              textAlign: TextAlign.center,
+            ),
+          ),
           TextField(
             maxLines: 10,
             controller: descTc,
@@ -234,8 +238,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
               filled: true,
             ),
           ),
-          SizedBox(height: 16),
-          Text("Agregar foto"),
+          SizedBox(height: 20),
           selectedImage != null
               ? Image.file(
                   selectedImage,
@@ -260,9 +263,12 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                   ),
                 ),
           SizedBox(height: 16),
-          Text("Fecha de extravío"),
+          Text(
+            "Fecha de extravío",
+            textAlign: TextAlign.center,
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 3, 200, 0),
+            padding: const EdgeInsets.fromLTRB(75, 16, 75, 0),
             child: TextButton(
               style: TextButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
@@ -311,9 +317,12 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             ),
           ),
           SizedBox(height: 16),
-          Text("Lugar de extravío"),
+          Text(
+            "Lugar de extravío",
+            textAlign: TextAlign.center,
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 3, 200, 0),
+            padding: const EdgeInsets.fromLTRB(75, 16, 75, 0),
             child: TextButton(
               style: TextButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor),
@@ -331,7 +340,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
             padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
             child: TextButton(
               child: Text(
-                "¡Crear!",
+                "Crear reporte",
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {

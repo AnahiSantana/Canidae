@@ -20,7 +20,7 @@ class _ListaCartelesState extends State<ListaCarteles> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Buscar mascotas perdidas"),
+        title: Text("Mascotas perdidas"),
         leading: BackButton(color: Theme.of(context).accentColor),
         backgroundColor: Theme.of(context).primaryColor,
       ),

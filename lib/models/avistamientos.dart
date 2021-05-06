@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Avistamientos extends Equatable {
   final String color;
-  final DateTime fecha;
+  final DateTime fechaExtravio;
   final GeoPoint lugar;
   final String tamano;
   final String urlToImage;
@@ -15,13 +15,13 @@ class Avistamientos extends Equatable {
     @required this.tamano,
     @required this.lugar,
     @required this.urlToImage,
-    @required this.fecha,
+    @required this.fechaExtravio,
     @required this.idUser,
   });
 
   @override
   String toString() {
-    return 'Articles(color: $color, tamano: $tamano, urlToImage: $urlToImage, fecha: $fecha, lugar: $lugar)';
+    return 'Articles(color: $color, tamano: $tamano, urlToImage: $urlToImage, fechaExtravio: $fechaExtravio, lugar: $lugar)';
   }
 
   factory Avistamientos.fromJson(Map<String, dynamic> json) {
@@ -29,9 +29,9 @@ class Avistamientos extends Equatable {
       color: json['color'] as String,
       tamano: json['tamano'] as String,
       urlToImage: json['urlToImage'] as String,
-      fecha: json['fecha'] == null
+      fechaExtravio: json['fechaExtravio'] == null
           ? null
-          : DateTime.parse(json['fecha'] as String),
+          : DateTime.parse(json['fechaExtravio'] as String),
       lugar: json['lugar'] as GeoPoint,
       idUser: json['idUser'] as String,
     );
@@ -42,7 +42,7 @@ class Avistamientos extends Equatable {
       'color': color,
       'tamano': tamano,
       'urlToImage': urlToImage,
-      'fecha': fecha?.toIso8601String(),
+      'fechaExtravio': fechaExtravio?.toIso8601String(),
       'lugar': lugar,
       'idUser': idUser,
     };
@@ -52,7 +52,7 @@ class Avistamientos extends Equatable {
     String color,
     String tamano,
     String urlToImage,
-    DateTime fecha,
+    DateTime fechaExtravio,
     String lugar,
     String idUser,
   }) {
@@ -60,7 +60,7 @@ class Avistamientos extends Equatable {
       color: color ?? this.color,
       tamano: tamano ?? this.tamano,
       urlToImage: urlToImage ?? this.urlToImage,
-      fecha: fecha ?? this.fecha,
+      fechaExtravio: fechaExtravio ?? this.fechaExtravio,
       lugar: lugar ?? this.lugar,
       idUser: idUser ?? this.idUser,
     );
@@ -72,7 +72,7 @@ class Avistamientos extends Equatable {
       color,
       tamano,
       urlToImage,
-      fecha,
+      fechaExtravio,
       lugar,
       idUser,
     ];

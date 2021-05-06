@@ -7,7 +7,7 @@ LinearGradient gradientP() {
       end: Alignment.bottomCenter,
       stops: [
         0,
-        0.80,
+        0.70,
         1
       ],
       colors: [

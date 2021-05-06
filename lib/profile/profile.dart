@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:test_canidae_2/bloc/auth_bloc.dart';
@@ -16,6 +17,7 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+  final _cFirebase = FirebaseAuth.instance;
   LoginBloc loginBloc;
 
   @override
@@ -42,7 +44,7 @@ class _PerfilState extends State<Perfil> {
       child: ListView(
         children: [
           Text(
-            'Usuario',
+            _cFirebase.currentUser.displayName,
             style: Theme.of(context).textTheme.headline1,
             textAlign: TextAlign.center,
           ),
@@ -55,8 +57,8 @@ class _PerfilState extends State<Perfil> {
                   Border.all(color: Theme.of(context).accentColor, width: 3),
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image: NetworkImage(
-                      'https://lh3.googleusercontent.com/a-/AOh14GhScc3cT_5n9ju3jPyvanIdRIsGO5fqokxnDlN-Rw=s96-c'),
+                  image: NetworkImage(_cFirebase.currentUser.photoURL ??
+                      "https://i.stack.imgur.com/34AD2.jpg"),
                   fit: BoxFit.contain),
             ),
           ),
@@ -167,7 +169,7 @@ class _PerfilState extends State<Perfil> {
                       child: Icon(Icons.mail_outline),
                     ),
                     Text(
-                      'omartian21@gmail.com',
+                      _cFirebase.currentUser.email ?? "Usuario invitado",
                       style: Theme.of(context).textTheme.bodyText1,
                       textAlign: TextAlign.center,
                     ),

@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_canidae_2/models/carteles.dart';
+import 'package:test_canidae_2/home/lost/catalogoAvistamientos/DetalleAvistamiento.dart';
+import 'package:test_canidae_2/models/avistamientos.dart';
 
-import 'DetalleCartel.dart';
-
-class ItemCarteles extends StatelessWidget {
-  final Carteles cartel;
-  const ItemCarteles({Key key, @required this.cartel}) : super(key: key);
+class ItemAvistamientos extends StatelessWidget {
+  final Avistamientos avistamiento;
+  const ItemAvistamientos({Key key, @required this.avistamiento})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class ItemCarteles extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => DetalleCartel(cartel: cartel),
+                builder: (context) =>
+                    DetalleAvistamiento(avistamiento: avistamiento),
               ),
             );
           },
@@ -32,7 +33,7 @@ class ItemCarteles extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Image.network(
-                      "${cartel.urlToImage}",
+                      "${avistamiento.urlToImage}",
                       height: 100,
                       fit: BoxFit.cover,
                     ),
@@ -47,7 +48,7 @@ class ItemCarteles extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "${cartel.petName}",
+                          "WACHADO",
                           maxLines: 1,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -56,18 +57,12 @@ class ItemCarteles extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Se perdió el ${cartel.fechaExtravio}",
+                          "Visto en ${avistamiento.fechaExtravio}",
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Colors.grey,
                             fontSize: 12,
                           ),
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          "${cartel.descripcion ?? "Descripcion no disponible"}",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 16),
                         RichText(
@@ -79,14 +74,14 @@ class ItemCarteles extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2.0),
                                   child: Icon(
-                                    Icons.phone,
+                                    Icons.square_foot_outlined,
                                     size: 16,
                                   ),
                                 ),
                               ),
                               TextSpan(
                                   text:
-                                      "${cartel.noTelefono ?? "Descripcion no disponible"}"),
+                                      "${avistamiento.tamano ?? "Descripcion no disponible"}"),
                             ],
                           ),
                         ),
@@ -99,14 +94,14 @@ class ItemCarteles extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2.0),
                                   child: Icon(
-                                    Icons.email_outlined,
+                                    Icons.palette,
                                     size: 16,
                                   ),
                                 ),
                               ),
                               TextSpan(
                                   text:
-                                      "${cartel.email ?? "Descripcion no disponible"}"),
+                                      "${avistamiento.color ?? "Descripcion no disponible"}"),
                             ],
                           ),
                         ),
