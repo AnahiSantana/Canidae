@@ -16,6 +16,8 @@ import 'dart:async';
 
 import 'package:test_canidae_2/profile/profile.dart';
 
+import 'lost/catalogoAvistamientos/DetalleAvistamiento.dart';
+
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
@@ -38,13 +40,15 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    HomeBloc()..add(RequestAllMArkersEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: BackButton(
-          color: Theme.of(context).accentColor,
-        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -154,7 +158,14 @@ class _HomeState extends State<Home> {
           Marker(
               markerId: MarkerId(e.urlToImage),
               position: LatLng(e.lugar.latitude, e.lugar.longitude),
-              icon: await getMarkerIcon(e.urlToImage)),
+              icon: await getMarkerIcon(e.urlToImage),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DetalleAvistamiento(avistamiento: e),
+                  ),
+                );
+              }),
         );
       },
     );
