@@ -130,6 +130,7 @@ class AvistamientoBloc extends Bloc<AvistEvent, AvistamientoState> {
               urlToImage: element["urlToImage"],
               lugar: element["lugar"],
               fechaExtravio: DateTime.parse(element["fechaExtravio"]),
+              idUser: element["idUser"]
             ),
           )
           .toList();

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:test_canidae_2/home/bloc/home_bloc.dart';
+import 'package:test_canidae_2/home/found/avistamientos/avistamiento.dart';
 import 'package:test_canidae_2/home/found/found.dart';
 import 'package:test_canidae_2/home/lost/lost.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -26,8 +27,7 @@ class _HomeState extends State<Home> {
   HomeBloc homeBloc;
   GoogleMapController mapController;
 
-  Position _center =
-      Position(latitude: 20.631033172046234, longitude: -103.37998064091526);
+  LatLng _center = LatLng(20.631033172046234, -103.37998064091526);
   Position _currentPosition;
   Set<Marker> _mapMarkers = Set();
 
@@ -118,7 +118,10 @@ class _HomeState extends State<Home> {
               alignment: Alignment.bottomCenter,
               child: FloatingActionButton(
                 onPressed: () {
-                  //TODO: foto para avistamiento
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Avistamiento();
+                  }));
                 },
                 child: Icon(Icons.camera_alt),
               ),
@@ -162,7 +165,7 @@ class _HomeState extends State<Home> {
       zoomControlsEnabled: false,
       initialCameraPosition: CameraPosition(
         target: _currentPosition == null
-            ? LatLng(_center.latitude, _center.longitude)
+            ? _center
             : LatLng(_currentPosition.latitude, _currentPosition.longitude),
         zoom: 18.0,
       ),

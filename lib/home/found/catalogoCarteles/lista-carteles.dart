@@ -75,17 +75,17 @@ Future<List<Carteles>> getCarteles() async {
     return carteles.docs
         .map(
           (element) => Carteles(
-            petName: element["petName"],
-            descripcion: element["descripcion"],
-            email: element["email"],
-            noAdicional: element["noAdicional"],
-            noTelefono: element["noTelefono"],
-            color: element["color"],
-            tamano: element["tamano"],
-            urlToImage: element["urlToImage"],
-            lugar: element["lugar"],
-            fechaExtravio: DateTime.parse(element["fechaExtravio"]),
-          ),
+              petName: element["petName"],
+              descripcion: element["descripcion"],
+              email: element["email"],
+              noAdicional: element["noAdicional"],
+              noTelefono: element["noTelefono"],
+              color: element["color"],
+              tamano: element["tamano"],
+              urlToImage: element["urlToImage"],
+              lugar: element["lugar"],
+              fechaExtravio: DateTime.parse(element["fechaExtravio"]),
+              idUser: element["idUser"]),
         )
         .toList();
   } catch (e) {
