@@ -31,7 +31,7 @@ class ItemAvistamientos extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Image.network(
                       "${avistamiento.urlToImage}",
                       height: 100,
@@ -48,12 +48,20 @@ class ItemAvistamientos extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Visto en ${avistamiento.fechaExtravio}",
+                          "WACHADO",
                           maxLines: 1,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          "Visto en ${avistamiento.fechaExtravio}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Colors.grey,
+                            fontSize: 12,
                           ),
                         ),
                         SizedBox(height: 16),
