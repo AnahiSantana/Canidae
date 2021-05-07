@@ -34,7 +34,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
   CartelBloc cartelBloc;
   DateTime fechaE;
   File selectedImage;
-  GeoPoint lugar;
+  GeoPoint lugar = GeoPoint(20.631016724321775, -103.3669197099245);
   String colorDropdownValue = 'Negro';
   String sizeDropdownValue = 'Pequeño';
   var noTc = TextEditingController();

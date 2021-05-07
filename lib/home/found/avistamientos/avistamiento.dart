@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tags/flutter_tags.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:test_canidae_2/gradient.dart';
 import 'package:test_canidae_2/home/found/avistamientos/bloc/avistamiento_bloc.dart';
 import 'package:test_canidae_2/home/location_selection.dart';
@@ -24,7 +25,7 @@ class _AvistamientoState extends State<Avistamiento> {
   List tags = new List();
   String colorDropdownValue = 'Negro';
   String sizeDropdownValue = 'Pequeño';
-  GeoPoint lugar;
+  GeoPoint lugar = GeoPoint(20.631016724321775, -103.3669197099245);
 
   final List<String> colorList = <String>[
     'Negro',
