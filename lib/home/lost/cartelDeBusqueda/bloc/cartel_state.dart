@@ -11,6 +11,8 @@ class CartelInitial extends CartelState {}
 
 class LoadingState extends CartelState {}
 
+class NoConectionState extends CartelState {}
+
 class LoadedCartelState extends CartelState {
   final List<Carteles> carteles;
 

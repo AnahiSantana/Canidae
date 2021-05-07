@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:test_canidae_2/home/bloc/home_bloc.dart';
 import 'package:test_canidae_2/home/found/found.dart';
 import 'package:test_canidae_2/home/lost/lost.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:test_canidae_2/models/avistamientos.dart';
 
 import 'dart:io';
 import 'dart:ui' as ui;
@@ -20,6 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  HomeBloc homeBloc;
   GoogleMapController mapController;
 
   Position _center =
@@ -56,18 +60,40 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        myLocationButtonEnabled: true,
-        zoomControlsEnabled: false,
-        initialCameraPosition: CameraPosition(
-          target: _currentPosition == null
-              ? LatLng(_center.latitude, _center.longitude)
-              : LatLng(_currentPosition.latitude, _currentPosition.longitude),
-          zoom: 18.0,
+      body: BlocProvider(
+        create: (context) => HomeBloc()..add(RequestAllMArkersEvent()),
+        child: BlocConsumer<HomeBloc, HomeState>(
+          listener: (context, state) {
+            if (state is ErrorMessageState) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text("${state.errorMsg}"),
+                  ),
+                );
+            }
+          },
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is NoConectionState) {
+              return Center(
+                child: Column(
+                  children: [
+                    Text("No internet conection"),
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            } else if (state is LoadedMarkersState) {
+              return _displayMap(state.wachadosList);
+            }
+            return Text("Algo salio mal");
+          },
         ),
-        mapType: MapType.normal,
-        markers: _mapMarkers,
       ),
       floatingActionButton: Stack(
         children: <Widget>[
@@ -118,6 +144,33 @@ class _HomeState extends State<Home> {
     );
   }
 
+  _displayMap(List<Avistamientos> listaAvistamientos) {
+    listaAvistamientos.forEach(
+      (e) async {
+        _mapMarkers.add(
+          Marker(
+              markerId: MarkerId(e.urlToImage),
+              position: LatLng(e.lugar.latitude, e.lugar.longitude),
+              icon: await getMarkerIcon(e.urlToImage)),
+        );
+      },
+    );
+
+    return GoogleMap(
+      onMapCreated: _onMapCreated,
+      myLocationButtonEnabled: true,
+      zoomControlsEnabled: false,
+      initialCameraPosition: CameraPosition(
+        target: _currentPosition == null
+            ? LatLng(_center.latitude, _center.longitude)
+            : LatLng(_currentPosition.latitude, _currentPosition.longitude),
+        zoom: 18.0,
+      ),
+      mapType: MapType.normal,
+      markers: _mapMarkers,
+    );
+  }
+
   Future<void> _getCurrentPosition() async {
     // verify permissions
     LocationPermission permission = await Geolocator.checkPermission();
@@ -129,27 +182,6 @@ class _HomeState extends State<Home> {
     // get current position
     _currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    //final Uint8List marker01 = await _urlToImage("https://dkt6rvnu67rqj.cloudfront.net/cdn/ff/v-u6szPHWKJtwxujfCslo-XnSyTdzbtk6SuWQLOpwfY/1579112217/public/styles/max_1000/public/media/cr_files/callejero.jpg?itok=Whibpx4K");
-    // add marker
-
-    //TODO: traer los markers de firebase
-    _mapMarkers.add(
-      Marker(
-        markerId: MarkerId("01"),
-        position: LatLng(20.63746147234882, -103.37861690858111),
-        icon: await getMarkerIcon(
-            ("https://dkt6rvnu67rqj.cloudfront.net/cdn/ff/v-u6szPHWKJtwxujfCslo-XnSyTdzbtk6SuWQLOpwfY/1579112217/public/styles/max_1000/public/media/cr_files/callejero.jpg?itok=Whibpx4K")),
-      ),
-    );
-
-    _mapMarkers.add(
-      Marker(
-        markerId: MarkerId("02"),
-        position: LatLng(20.638284779547764, -103.38022623393856),
-        icon: await getMarkerIcon(
-            ("https://image.freepik.com/free-photo/dog-is-sitting-couch-love-tenderness-pets-vertical_120897-1729.jpg")),
-      ),
-    );
 
     // move camera
     mapController.animateCamera(
