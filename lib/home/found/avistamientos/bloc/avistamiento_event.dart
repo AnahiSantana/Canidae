@@ -12,6 +12,14 @@ class RequestAllCartelesEvent extends AvistEvent {
   List<Object> get props => [];
 }
 
+class FilterAllCartelesEvent extends AvistEvent {
+  final List<Avistamientos> avistamientos;
+  FilterAllCartelesEvent({@required this.avistamientos});
+
+  @override
+  List<Object> get props => [avistamientos];
+}
+
 class SaveAvistEvent extends AvistEvent {
   final Avistamientos avistamiento;
   SaveAvistEvent({@required this.avistamiento});

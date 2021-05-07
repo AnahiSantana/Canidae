@@ -25,7 +25,9 @@ class AvistamientoBloc extends Bloc<AvistEvent, AvistamientoState> {
   Stream<AvistamientoState> mapEventToState(
     AvistEvent event,
   ) async* {
-    if (event is RequestAllCartelesEvent) {
+    if (event is FilterAllCartelesEvent) {
+      yield LoadedAvistamientoState(avistamientos: event.avistamientos);
+    } else if (event is RequestAllCartelesEvent) {
       // conectarnos a firebase noSQL y traernos los docs
       yield LoadingState();
       yield LoadedAvistamientoState(

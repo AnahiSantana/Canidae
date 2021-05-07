@@ -11,6 +11,14 @@ class AvistInitial extends AvistamientoState {}
 
 class LoadingState extends AvistamientoState {}
 
+class FilteredAvistamientoState extends AvistamientoState {
+  final List<Avistamientos> avistamientos;
+
+  FilteredAvistamientoState({@required this.avistamientos});
+  @override
+  List<Object> get props => [avistamientos];
+}
+
 class LoadedAvistamientoState extends AvistamientoState {
   final List<Avistamientos> avistamientos;
 

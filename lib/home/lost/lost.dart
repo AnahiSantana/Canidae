@@ -60,7 +60,7 @@ class _PerdidoState extends State<Perdido> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return Avistamientos();
+                    return ListaAvistamientos();
                   }));
                 },
               ),

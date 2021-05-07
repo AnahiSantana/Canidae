@@ -241,7 +241,7 @@ class _HomeState extends State<Home> {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
     final Paint rectColor = Paint()..color = Theme.of(context).primaryColor;
-    final Radius radius = Radius.circular(10);
+    final Radius radius = Radius.circular(15);
 
     // dibujar un rectangulo rosa
     canvas.drawRRect(
