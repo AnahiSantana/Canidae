@@ -51,6 +51,11 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           IconButton(
+              icon: Icon(Icons.replay),
+              onPressed: () {
+                homeBloc.add(RequestAllMArkersEvent());
+              }),
+          IconButton(
             icon: Icon(
               Icons.person,
               color: Theme.of(context).accentColor,
@@ -65,7 +70,11 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: BlocProvider(
-        create: (context) => HomeBloc()..add(RequestAllMArkersEvent()),
+        create: (context) {
+          homeBloc = HomeBloc();
+          homeBloc.add(RequestAllMArkersEvent());
+          return homeBloc;
+        },
         child: BlocConsumer<HomeBloc, HomeState>(
           listener: (context, state) {
             if (state is ErrorMessageState) {
