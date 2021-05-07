@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:test_canidae_2/gradient.dart';
 import 'package:test_canidae_2/home/found/avistamientos/bloc/avistamiento_bloc.dart';
+import 'package:test_canidae_2/home/location_selection.dart';
 import 'package:test_canidae_2/home/lost/catalogoAvistamientos/lista-avistamientos.dart';
 import 'package:test_canidae_2/models/avistamientos.dart' as a;
 
@@ -23,6 +24,7 @@ class _AvistamientoState extends State<Avistamiento> {
   List tags = new List();
   String colorDropdownValue = 'Negro';
   String sizeDropdownValue = 'Pequeño';
+  GeoPoint lugar;
 
   final List<String> colorList = <String>[
     'Negro',
@@ -75,7 +77,7 @@ class _AvistamientoState extends State<Avistamiento> {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
                     SnackBar(
-                      content: Text("Cartel guardado..."),
+                      content: Text("Avistamiento guardado..."),
                     ),
                   );
               }
@@ -195,7 +197,7 @@ class _AvistamientoState extends State<Avistamiento> {
             ),
           ),
           Text(
-            "Fecha de extravío",
+            "Fecha de avistamiento",
             textAlign: TextAlign.center,
           ),
           Padding(
@@ -224,7 +226,6 @@ class _AvistamientoState extends State<Avistamiento> {
                 ],
               ),
               onPressed: () {
-                //TODO: change to event
                 showDatePicker(
                   context: context,
                   initialDate: fechaE == null ? DateTime.now() : fechaE,
@@ -261,8 +262,11 @@ class _AvistamientoState extends State<Avistamiento> {
                 "Abrir mapa",
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              onPressed: () {
-                //TODO: implementar maps
+              onPressed: () async {
+                lugar = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocationSelection()),
+                );
               },
             ),
           ),
@@ -281,7 +285,7 @@ class _AvistamientoState extends State<Avistamiento> {
                         idUser: null,
                         urlToImage: null,
                         fechaExtravio: fechaE,
-                        lugar: GeoPoint(20.636464433337576, -103.3796966997379),
+                        lugar: lugar,
                         color: colorDropdownValue,
                         tamano: sizeDropdownValue),
                   ),

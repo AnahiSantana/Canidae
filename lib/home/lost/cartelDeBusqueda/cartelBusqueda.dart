@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_canidae_2/gradient.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_canidae_2/home/location_selection.dart';
 import 'package:test_canidae_2/models/carteles.dart';
 import 'bloc/cartel_bloc.dart';
 
@@ -33,6 +34,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
   CartelBloc cartelBloc;
   DateTime fechaE;
   File selectedImage;
+  GeoPoint lugar;
   String colorDropdownValue = 'Negro';
   String sizeDropdownValue = 'Pequeño';
   var noTc = TextEditingController();
@@ -330,8 +332,11 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                 "Abrir mapa",
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              onPressed: () {
-                //TODO: implementar maps
+              onPressed: () async {
+                lugar = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocationSelection()),
+                );
               },
             ),
           ),
@@ -357,7 +362,7 @@ class _CartelBusquedaState extends State<CartelBusqueda> {
                       urlToImage: null,
                       idUser: null,
                       fechaExtravio: fechaE,
-                      lugar: GeoPoint(20.636464433337576, -103.3796966997379),
+                      lugar: lugar,
                     ),
                   ),
                 );
