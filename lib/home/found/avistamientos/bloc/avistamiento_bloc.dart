@@ -125,13 +125,12 @@ class AvistamientoBloc extends Bloc<AvistEvent, AvistamientoState> {
       return avistamientos.docs
           .map(
             (element) => Avistamientos(
-              color: element["color"],
-              tamano: element["tamano"],
-              urlToImage: element["urlToImage"],
-              lugar: element["lugar"],
-              fechaExtravio: DateTime.parse(element["fechaExtravio"]),
-              idUser: element["idUser"]
-            ),
+                color: element["color"],
+                tamano: element["tamano"],
+                urlToImage: element["urlToImage"],
+                lugar: element["lugar"],
+                fechaExtravio: DateTime.parse(element["fechaExtravio"]),
+                idUser: element["idUser"]),
           )
           .toList();
     } catch (e) {

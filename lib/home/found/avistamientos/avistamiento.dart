@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:test_canidae_2/gradient.dart';
+import 'package:test_canidae_2/home/found/avistamientos/bloc/avistamiento_bloc.dart';
+import 'package:test_canidae_2/home/lost/catalogoAvistamientos/lista-avistamientos.dart';
+import 'package:test_canidae_2/models/avistamientos.dart' as a;
 
 class Avistamiento extends StatefulWidget {
   Avistamiento({Key key}) : super(key: key);
@@ -14,7 +19,7 @@ class Avistamiento extends StatefulWidget {
 class _AvistamientoState extends State<Avistamiento> {
   File selectedImage;
   DateTime fechaE;
-  final GlobalKey<TagsState> _globalKey = GlobalKey<TagsState>();
+  AvistamientoBloc avistamientoBloc;
   List tags = new List();
   String colorDropdownValue = 'Negro';
   String sizeDropdownValue = 'Pequeño';
@@ -47,7 +52,44 @@ class _AvistamientoState extends State<Avistamiento> {
         decoration: BoxDecoration(
           gradient: gradientP(),
         ),
-        child: _createForm(),
+        child: BlocProvider(
+          create: (context) {
+            avistamientoBloc = AvistamientoBloc();
+            return avistamientoBloc;
+          },
+          child: BlocConsumer<AvistamientoBloc, AvistamientoState>(
+            listener: (context, state) {
+              if (state is PickedImageState) {
+                selectedImage = state.image;
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text("Imagen seleccionada"),
+                    ),
+                  );
+              } else if (state is SavedAvistamientoState) {
+                selectedImage = null;
+                fechaE = null;
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text("Cartel guardado..."),
+                    ),
+                  );
+              }
+            },
+            builder: (context, state) {
+              if (state is LoadingState) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return _createForm();
+            },
+          ),
+        ),
       ),
     );
   }
@@ -87,8 +129,8 @@ class _AvistamientoState extends State<Avistamiento> {
                         color: Theme.of(context).accentColor,
                         iconSize: 35,
                         icon: Icon(Icons.add_a_photo_rounded),
-                        onPressed: () {
-                          //TODO: Select photo event
+                        onPressed: () async {
+                          selectedImage = await _chooseImage();
                         }),
                   ),
                 ),
@@ -233,12 +275,54 @@ class _AvistamientoState extends State<Avistamiento> {
                 style: TextStyle(fontSize: 22),
               ),
               onPressed: () {
-                //TODO: guardar en firebase
+                avistamientoBloc.add(
+                  SaveAvistEvent(
+                    avistamiento: a.Avistamientos(
+                        idUser: null,
+                        urlToImage: null,
+                        fechaExtravio: fechaE,
+                        lugar: GeoPoint(20.636464433337576, -103.3796966997379),
+                        color: colorDropdownValue,
+                        tamano: sizeDropdownValue),
+                  ),
+                );
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<File> _chooseImage() async {
+    File _pickedFile;
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        avistamientoBloc.add(GalleryImageEvent());
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      avistamientoBloc.add(CamaraImageEvent());
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+    return _pickedFile;
   }
 }
