@@ -39,6 +39,8 @@ class DetalleAvistamiento extends StatelessWidget {
                             child: Image.asset(
                               'assets/images/test-image.png',
                               fit: BoxFit.fitWidth,
+                              height: 400,
+                              width: 400,
                             ),
                           )
                         : Padding(
